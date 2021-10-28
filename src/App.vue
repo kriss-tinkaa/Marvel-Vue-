@@ -8,7 +8,7 @@
 
             <app-modal :character="character"/>
 
-            <spinner/>
+            <spinner v-if="loading"/>
 
             <div class="cards row">
                 <div v-for="(el, idx) in characters"
@@ -71,8 +71,10 @@
                 return this.characters[this.characterIndex] || null;
             }
         },
-        mounted(){
-            this.fetchCharacters();
+        async mounted(){
+            this.loading = true;
+            await this.fetchCharacters();
+            this.loading = false;
         },
     }
 </script>
